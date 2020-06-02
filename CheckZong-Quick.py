@@ -131,8 +131,8 @@ def onpressed(key):
             if (value == ''):
                 print('不处理')
                 tapkey(k.escape_key)
-                tapkey(k.left_key, 4)
-                tapkey(k.down_key, 2)
+
+
             else:
                 # if(value>80):
                 # value=int(value)  #不取整了
@@ -140,74 +140,7 @@ def onpressed(key):
                 print(value)
                 tapkey(k.enter_key)
 
-                time.sleep(2)
 
-                # 工程量系数 1.03 1.01
-                tapkey(k.escape_key)
-                tapkey(k.right_key, 6)
-                tapkey(k.up_key, 3)
-                changed_zong = float(getCopy())
-
-                # temppppppppppppppppppppppppppppppppppppppp
-                minus_zong = changed_zong - zong  # 合价
-                if (nowValue == kong):
-                    minus_value = value - 0
-                else:
-                    minus_value = value - nowValue
-                changed_arg = minus_zong / minus_value
-                print(changed_arg)
-                changed_value = value
-                if (changed_arg != 1 and changed_arg != 0):
-
-                    if (nowValue == kong):
-                        print('空空空22')
-                        # print(projectCharactor)
-                        if (zong > lowest):
-                            print('无主材价，综合>控制,减不动22')
-                        else:
-                            changed_value = (float(abs((lowest) - (zong))) + arg) / changed_arg
-
-
-
-                            # print(value)
-                    else:
-
-                        if (zong > lowest + arg):  # TODDODODODODODO
-                            minus = (zong - lowest) - arg
-                            if (minus > 0):
-                                # value=nowValue-minus/1.15#TODDODODODODODO
-                                changed_value = nowValue - minus / changed_arg
-
-                            else:
-                                print('材料价太少，少到最低价都不够减22')
-                        else:
-                            if (zong < lowest):
-                                add = lowest + arg - zong
-                                # value = nowValue +add / 1.15#TODDODODODODODO
-                                changed_value = nowValue + add / changed_arg
-
-                            else:
-                                print('满足条件22')
-                    # temp end
-
-                    if (changed_value < 0):
-                        print('负数 价格 wrong index::' + str(index_count))
-                        print('负数 价格::' + str(changed_value))
-
-                        changed_value = 0
-
-                    tapkey(k.down_key, 2)
-                    k.type_string(str(changed_value))
-                    # print(changed_arg)
-                    print('改系数')
-                    print(changed_value)
-                    tapkey(k.enter_key)
-                    time.sleep(2)
-
-                # 工程量系数 1.03 1.01  end
-                else:
-                    tapkey(k.down_key, 2)
-                    tapkey(k.enter_key)
 
                 # 下一个
                 tapkey(k.escape_key)
@@ -217,8 +150,7 @@ def onpressed(key):
         else:
             print('满足条件，不处理')
             tapkey(k.escape_key)
-            tapkey(k.left_key, 5)
-            tapkey(k.down_key, 4)
+
 
 k=PyKeyboard()
 m=PyMouse()
