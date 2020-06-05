@@ -81,8 +81,8 @@ def onpressed(key):
         else:
             print('负数')
 
-        condition1 = zong <= lowest - 0.05  # 误差0.05不处理
-        condition2 = zong > lowest + arg + 0.05  # 误差0.05不处理
+        condition1 = zong <= lowest - 0.01  # 误差0.05不处理
+        condition2 = zong > lowest + arg + 0.01  # 误差0.05不处理
 
         # for lowest
 
