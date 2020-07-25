@@ -16,23 +16,42 @@ def copy():
 
 
 
-def getCopy(noresult=None,maxTime=0.7):
+# def getCopy(noresult=None,maxTime=0.7):
+#     # maxTime = 3  # 3秒复制 调用copy() 不管结果对错
+#     if(maxTime<=0):
+#         return noresult
+#     pyperclip.copy('')
+#     time.sleep(0.3)
+#     # print('doing')
+#     copy()
+#     result = pyperclip.paste()
+#     if(result==''):
+#         return getCopy(noresult,maxTime-0.3)
+#
+#     #print('debug:'+str(result))
+#     return result
+
+
+def getCopy(noresult=None,maxTime=0.7,isDone=False):
     # maxTime = 3  # 3秒复制 调用copy() 不管结果对错
-    if(maxTime<=0):
+
+    if(maxTime<=0 or isDone):
         return noresult
     pyperclip.copy('')
     time.sleep(0.3)
     # print('doing')
     copy()
     result = pyperclip.paste()
-    if(result==''):
-        return getCopy(noresult,maxTime-0.3)
-
     #print('debug:'+str(result))
+    if(result==''):
+        return getCopy(noresult,maxTime-0.3,False)
+    else:
+        return getCopy(result,maxTime-0.3,True)
+
     return result
 
 
-def tapkey(key, count=1, waitTime=0.1):
+def tapkey(key, count=1, waitTime=0.05):
     for i in range(0, count):
         k.tap_key(key)
         time.sleep(waitTime)
@@ -56,7 +75,6 @@ def onpressed(key):
 
 
         print('开始检测综合单价')
-
         zong = float(getCopy())
         tapkey(k.down_key)
         tapkey(k.escape_key)
@@ -71,9 +89,9 @@ def onpressed(key):
         kong = float(getCopy())
         swimValue = abs((kong) - (zong)) / (kong)
 
-        #lowest = kong * 0.85
+        lowest = kong * 0.85
 
-        lowest = kong * 0.8#智能化
+        #lowest = kong * 0.8#智能化--------------------------------------------
 
         arg = 1
         UnitCloseArg = 'm' in unit or 'kg' in unit
@@ -126,6 +144,7 @@ def onpressed(key):
 
             # 多往下走2行-------------------------------------------------------------
             #tapkey(k.down_key, 1)
+
 
             nowValue = float(getCopy(0))
             value = ''
@@ -181,8 +200,10 @@ def onpressed(key):
                 tapkey(k.right_key, 6)
                 tapkey(k.up_key, 3)
 
-                changed_zong = float(getCopy())
-
+                changed_zong = float(getCopy(0))
+                if(changed_zong==0):
+                    print('空')
+                    return
                 # temppppppppppppppppppppppppppppppppppppppp
                 minus_zong = changed_zong - zong  # 合价
                 if (nowValue == None):
@@ -373,5 +394,7 @@ k=PyKeyboard()
 m=PyMouse()
 
 print('start,从综合单价开始')
+print('智能化0.8看下，76行！！！！!')
 with keyboard.Listener(on_press=onpressed) as listener:
     listener.join()
+ 
